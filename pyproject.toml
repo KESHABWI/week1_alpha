@@ -1,13 +1,18 @@
 [project]
-name = "week1-ai-system"
+name = "week1-alpha"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.136.3",
+    "google-generativeai>=0.8.6",
     "httpx>=0.28.1",
+    "langchain>=1.3.2",
+    "langchain-groq>=1.1.2",
+    "langgraph>=1.2.2",
     "pydantic>=2.13.4",
+    "pydantic-settings>=2.14.1",
     "python-dotenv>=1.2.2",
     "uvicorn>=0.48.0",
 ]
