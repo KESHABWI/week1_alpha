@@ -1,26 +1,30 @@
-# ⚡ Week1 Alpha: Multi-Provider LLM Router
+# ⚡ Week1 Alpha: Multi-Provider LLM Router CLI
 
-A high-performance, asynchronous FastAPI application that implements a robust failover routing mechanism across multiple LLM providers: **Groq**, **Gemini**, and **Ollama**. Built with modern Python tooling and optimized for speed and reliability.
+A robust, production-ready CLI application that implements intelligent failover routing across multiple LLM providers: **Groq**, **Gemini**, and **Ollama**. Built with modern Python tooling, comprehensive logging, request validation, and graceful error handling.
 
 ---
 
 ## 🚀 Features
 
-- **Asynchronous Routing**: Asynchronous endpoints built on top of FastAPI and `httpx`.
+- **Asynchronous CLI Chat**: Interactive chat interface powered by async/await for responsive interactions.
 - **Intelligent Failover**: Automatically routes requests with a cascade strategy:
   $$\text{Groq} \longrightarrow \text{Gemini} \longrightarrow \text{Ollama (Local/Self-hosted)}$$
-- **Resource Management**: Efficient connection pooling with HTTP/2 support via custom `httpx.AsyncClient` lifecycle management.
-- **Robust Configuration**: Strictly validated environment settings utilizing `pydantic-settings`.
+- **Request/Response Validation**: Pydantic models validate all payloads, user inputs, and API responses.
+- **Comprehensive Logging**: File and console logging with rotating file handlers, request/response tracking, and error diagnostics.
+- **Graceful Error Handling**: Configuration validation at startup, network/timeout error handling, API failure recovery.
+- **Resource Management**: Efficient connection pooling with HTTP/2 support via custom `httpx.AsyncClient`.
+- **Robust Configuration**: Strictly validated environment settings using `pydantic-settings` with field validators.
 - **Modern Toolchain**: Fully managed and run with **Astral's `uv`**, the ultra-fast Python package manager.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [FastAPI](https://fastapi.tiangolo.com/)
+- **Async Runtime**: Python `asyncio` for concurrent execution
 - **HTTP Client**: [HTTPX](https://www.python-httpx.org/) (with HTTP/2 support)
 - **Local LLM Client**: [Ollama Python SDK](https://github.com/ollama/ollama-python)
-- **Settings & Validation**: [Pydantic v2](https://docs.pydantic.dev/latest/) & [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)
+- **Data Validation**: [Pydantic v2](https://docs.pydantic.dev/latest/) & [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)
+- **Logging**: Python `logging` module with rotating file handlers
 - **Package Manager**: [uv](https://github.com/astral-sh/uv)
 - **Testing & Quality**: [pytest](https://docs.pytest.org/), [ruff](https://github.com/astral-sh/ruff), [mypy](https://mypy-lang.org/)
 
@@ -79,59 +83,90 @@ OLLAMA_API_KEY=your_ollama_api_key_here
 
 ## 🏃 Running the Application
 
-### Start the FastAPI Dev Server
+### Start the CLI Chat
 
-Launch the server with live-reloading enabled using `uv run`:
+Launch the interactive chat interface:
 
 ```bash
-uv run uvicorn src.main:app --reload
+uv run python -m src.main
 ```
 
-The application will start, and you can access:
-- **API Endpoint**: `http://127.0.0.1:8000`
-- **Interactive API Docs (Swagger UI)**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+You'll see:
+
+```
+--- Alpha LLM Chat ---
+Type "exit" to quit
+User: 
+```
+
+### Example Interaction
+
+```
+--- Alpha LLM Chat ---
+Type "exit" to quit
+User: What is machine learning?
+AI: Machine learning is a subset of artificial intelligence that enables computers to learn from data and improve their performance on tasks without being explicitly programmed...
+User: exit
+Goodbye, Have a nice day
+```
 
 ---
 
-## 🤖 API Usage
+## 📋 Features in Detail
 
-### `/chat` Endpoint (POST)
+### 1. **Request Validation** (Pydantic)
+- **User Input**: Prompts validated for length (1-10,000 characters)
+- **API Payloads**: Groq, Gemini, and Ollama requests validated before sending
+- **Responses**: LLM responses validated for provider, response text, and latency
 
-Submit a prompt to be processed by the active/fallback LLM provider.
+**Models**:
+- `UserInput`: Validates user prompts
+- `Message`: Validates message structure (role: user/assistant/system)
+- `GroqRequest`, `GeminiRequest`, `OllamaRequest`: Provider-specific payloads
+- `LLMResponse`: Response structure with provider and latency tracking
 
-#### Request
+### 2. **Logging** (Comprehensive)
+- **File Location**: `logs/week1_alpha.log` (created automatically)
+- **Log Levels**: INFO, DEBUG, WARNING, ERROR
+- **What's Logged**:
+  - Application startup and configuration validation
+  - User prompts and responses
+  - Provider selection and failover attempts
+  - Request/response payloads (DEBUG level)
+  - Errors and exceptions with full tracebacks
+  - API latency metrics
 
-- **URL**: `/chat`
-- **Method**: `POST`
-- **Headers**: `Content-Type: application/json`
-- **Payload**:
+**Log File Features**:
+- Rotating file handler (5MB per file, 3 backups)
+- Console + file output simultaneously
+- Timestamped entries for debugging
 
-```json
-{
-  "prompt": "Explain the concept of quantum computing in one simple sentence."
-}
+### 3. **Error Handling** (Graceful)
+- **Configuration Validation**: Startup checks for missing API keys, invalid URLs
+- **Network Errors**: Timeout/connection errors caught and logged
+- **API Failures**: 4xx/5xx errors trigger automatic failover
+- **Rate Limiting**: 429 errors detected and handled per provider
+- **User Input Errors**: Validation errors shown with helpful messages
+
+**Error Output**:
+```
+❌ Configuration Error:
+  - GROQ_API_KEY: GROQ_API_KEY is missing or empty. Check your .env file.
+
+Please check your .env file and try again.
 ```
 
-#### Curl Command
+### 4. **Failover Strategy**
+1. Try **Groq** (fast & reliable)
+2. If Groq fails → Try **Gemini** 
+3. If Gemini fails → Try **Ollama** (local fallback)
+4. Log each transition with reason
 
-```bash
-curl -X POST http://127.0.0.1:8000/chat \
-  -H "Content-Type: application/json" \
-  -d '{"prompt": "Explain the concept of quantum computing in one simple sentence."}'
-```
+---
 
-#### Response
+## 🤖 API Usage (Legacy - Commented)
 
-```json
-{
-  "provider_response": {
-    "provider": "groq",
-    "response": "Quantum computing is a type of computing that uses quantum mechanics principles, such as superposition and entanglement, to perform calculations much faster than classical computers.",
-    "latency_ms": 342.5
-  }
-}
-```
+The FastAPI routes are currently commented in `src/main.py` but can be uncommented for future REST API support.
 
 ---
 
@@ -167,28 +202,66 @@ uv run mypy src
 ## 📂 Project Structure
 
 ```text
-├── .env.example             # Template for API credentials
-├── pyproject.toml           # Project metadata and uv dependencies
-├── uv.lock                  # Pinned dependency lockfile
+├── .env.example              # Template for API credentials
+├── pyproject.toml            # Project metadata and uv dependencies
+├── uv.lock                   # Pinned dependency lockfile
+├── logs/                     # Logs directory (auto-created)
+│   └── week1_alpha.log       # Application log file
 ├── src/
-│   ├── main.py              # Application entry point & API routes
+│   ├── main.py               # CLI chat application entry point
 │   ├── clients/
-│   │   └── httpx_client.py  # Shared, pooled Async HTTP client
+│   │   └── httpx_client.py   # Shared, pooled Async HTTP client
 │   ├── config/
-│   │   └── settings.py      # Pydantic BaseSettings config
+│   │   ├── settings.py       # Pydantic BaseSettings with validation
+│   │   └── logging_config.py # Logging configuration (file + console)
 │   ├── schemas/
-│   │   └── llm_schema.py    # LLM request/response Pydantic models
+│   │   └── llm_schema.py     # Pydantic models for requests/responses
 │   └── services/
-│       ├── llm_router.py    # Priority & failover routing service
-│       ├── groq_services.py # Groq API client service
-│       ├── gemini_services.py# Gemini API client service
-│       └── ollama_services.py# Ollama API/SDK client service
+│       ├── llm_router.py     # Priority & failover routing logic
+│       ├── groq_services.py  # Groq API client with validation
+│       ├── gemini_services.py# Gemini API client with validation
+│       └── ollama_services.py# Ollama SDK client with validation
 └── tests/
-    └── test_ollama.py       # Async tests for LLM providers
+    └── test_ollama.py        # Async tests for Ollama provider
 ```
 
 ---
 
-## 🛡️ License
+## � Troubleshooting
+
+### Configuration Error at Startup
+
+**Error**: `❌ Configuration Error: GROQ_API_KEY is missing or empty`
+
+**Solution**: Ensure your `.env` file exists and contains all required API keys:
+```bash
+cp .env.example .env
+# Edit .env and fill in your API keys
+```
+
+### Validation Error on Input
+
+**Error**: `❌ Validation Error: ensure this value has at most 10000 characters`
+
+**Solution**: Your prompt exceeds 10,000 characters. Keep prompts shorter.
+
+### Network Timeout
+
+**Error**: `❌ Error: Groq network error: TimeoutError`
+
+**Solution**: Check your internet connection. The application will automatically fallback to Gemini or Ollama.
+
+### View Application Logs
+
+Check the log file for detailed error information:
+```bash
+cat logs/week1_alpha.log
+# Or follow logs in real-time
+tail -f logs/week1_alpha.log
+```
+
+---
+
+## �🛡️ License
 
 This project is licensed under the MIT License.

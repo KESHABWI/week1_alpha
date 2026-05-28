@@ -1,0 +1,201 @@
+2026-05-28 10:04:34 INFO __main__: Starting LLM chat loop
+2026-05-28 10:04:40 INFO __main__: Received user prompt: hello
+2026-05-28 10:04:40 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:04:40 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:04:40 INFO src.services.llm_router: Groq provided response in 300.59ms
+2026-05-28 10:04:40 INFO __main__: Responding with provider=groq latency_ms=300.59
+2026-05-28 10:05:17 INFO __main__: Received user prompt: kk
+2026-05-28 10:05:17 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:05:17 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:05:17 INFO src.services.llm_router: Groq provided response in 332.09ms
+2026-05-28 10:05:17 INFO __main__: Responding with provider=groq latency_ms=332.09
+2026-05-28 10:05:21 INFO __main__: Exiting LLM chat loop
+2026-05-28 10:05:55 INFO __main__: Starting LLM chat loop
+2026-05-28 10:05:57 INFO __main__: Received user prompt: hi
+2026-05-28 10:05:57 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:05:57 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:05:57 INFO src.services.llm_router: Groq provided response in 268.01ms
+2026-05-28 10:05:57 INFO __main__: Responding with provider=groq latency_ms=268.01
+2026-05-28 10:05:59 INFO __main__: Received user prompt: hi
+2026-05-28 10:05:59 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:00 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:00 INFO src.services.llm_router: Groq provided response in 231.95ms
+2026-05-28 10:06:00 INFO __main__: Responding with provider=groq latency_ms=231.95
+2026-05-28 10:06:01 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:01 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:01 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:01 INFO src.services.llm_router: Groq provided response in 263.87ms
+2026-05-28 10:06:01 INFO __main__: Responding with provider=groq latency_ms=263.87
+2026-05-28 10:06:03 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:03 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:03 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:03 INFO src.services.llm_router: Groq provided response in 327.71ms
+2026-05-28 10:06:03 INFO __main__: Responding with provider=groq latency_ms=327.71
+2026-05-28 10:06:04 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:04 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:04 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:04 INFO src.services.llm_router: Groq provided response in 211.87ms
+2026-05-28 10:06:04 INFO __main__: Responding with provider=groq latency_ms=211.87
+2026-05-28 10:06:06 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:06 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:06 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:06 INFO src.services.llm_router: Groq provided response in 212.75ms
+2026-05-28 10:06:06 INFO __main__: Responding with provider=groq latency_ms=212.75
+2026-05-28 10:06:07 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:07 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:07 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:07 INFO src.services.llm_router: Groq provided response in 253.04ms
+2026-05-28 10:06:07 INFO __main__: Responding with provider=groq latency_ms=253.04
+2026-05-28 10:06:08 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:08 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:09 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:09 INFO src.services.llm_router: Groq provided response in 276.4ms
+2026-05-28 10:06:09 INFO __main__: Responding with provider=groq latency_ms=276.4
+2026-05-28 10:06:10 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:10 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:10 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:10 INFO src.services.llm_router: Groq provided response in 391.6ms
+2026-05-28 10:06:10 INFO __main__: Responding with provider=groq latency_ms=391.6
+2026-05-28 10:06:11 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:11 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:14 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:14 INFO src.services.llm_router: Groq provided response in 2173.19ms
+2026-05-28 10:06:14 INFO __main__: Responding with provider=groq latency_ms=2173.19
+2026-05-28 10:06:15 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:15 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:15 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:15 INFO src.services.llm_router: Groq provided response in 242.23ms
+2026-05-28 10:06:15 INFO __main__: Responding with provider=groq latency_ms=242.23
+2026-05-28 10:06:17 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:17 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:17 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:17 INFO src.services.llm_router: Groq provided response in 214.07ms
+2026-05-28 10:06:17 INFO __main__: Responding with provider=groq latency_ms=214.07
+2026-05-28 10:06:18 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:18 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:18 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:18 INFO src.services.llm_router: Groq provided response in 224.51ms
+2026-05-28 10:06:18 INFO __main__: Responding with provider=groq latency_ms=224.51
+2026-05-28 10:06:20 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:20 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:23 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:23 INFO src.services.llm_router: Groq provided response in 2795.63ms
+2026-05-28 10:06:23 INFO __main__: Responding with provider=groq latency_ms=2795.63
+2026-05-28 10:06:25 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:25 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:29 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:29 INFO src.services.llm_router: Groq provided response in 3702.87ms
+2026-05-28 10:06:29 INFO __main__: Responding with provider=groq latency_ms=3702.87
+2026-05-28 10:06:32 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:32 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:32 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:32 INFO src.services.llm_router: Groq provided response in 183.39ms
+2026-05-28 10:06:32 INFO __main__: Responding with provider=groq latency_ms=183.39
+2026-05-28 10:06:34 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:34 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:34 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:34 INFO src.services.llm_router: Groq provided response in 286.12ms
+2026-05-28 10:06:34 INFO __main__: Responding with provider=groq latency_ms=286.12
+2026-05-28 10:06:36 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:36 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:36 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:36 INFO src.services.llm_router: Groq provided response in 286.86ms
+2026-05-28 10:06:36 INFO __main__: Responding with provider=groq latency_ms=286.86
+2026-05-28 10:06:37 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:37 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:37 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:37 INFO src.services.llm_router: Groq provided response in 208.93ms
+2026-05-28 10:06:37 INFO __main__: Responding with provider=groq latency_ms=208.93
+2026-05-28 10:06:38 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:38 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:39 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:39 INFO src.services.llm_router: Groq provided response in 229.64ms
+2026-05-28 10:06:39 INFO __main__: Responding with provider=groq latency_ms=229.64
+2026-05-28 10:06:40 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:40 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:40 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:40 INFO src.services.llm_router: Groq provided response in 246.46ms
+2026-05-28 10:06:40 INFO __main__: Responding with provider=groq latency_ms=246.46
+2026-05-28 10:06:42 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:42 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:42 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:42 INFO src.services.llm_router: Groq provided response in 228.41ms
+2026-05-28 10:06:42 INFO __main__: Responding with provider=groq latency_ms=228.41
+2026-05-28 10:06:43 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:43 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:43 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:43 INFO src.services.llm_router: Groq provided response in 207.33ms
+2026-05-28 10:06:43 INFO __main__: Responding with provider=groq latency_ms=207.33
+2026-05-28 10:06:45 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:45 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:45 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:45 INFO src.services.llm_router: Groq provided response in 244.01ms
+2026-05-28 10:06:45 INFO __main__: Responding with provider=groq latency_ms=244.01
+2026-05-28 10:06:46 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:46 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:46 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:46 INFO src.services.llm_router: Groq provided response in 205.54ms
+2026-05-28 10:06:46 INFO __main__: Responding with provider=groq latency_ms=205.54
+2026-05-28 10:06:47 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:47 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:48 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:48 INFO src.services.llm_router: Groq provided response in 233.0ms
+2026-05-28 10:06:48 INFO __main__: Responding with provider=groq latency_ms=233.0
+2026-05-28 10:06:49 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:49 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:49 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:49 INFO src.services.llm_router: Groq provided response in 308.38ms
+2026-05-28 10:06:49 INFO __main__: Responding with provider=groq latency_ms=308.38
+2026-05-28 10:06:50 INFO __main__: Received user prompt: hi
+2026-05-28 10:06:50 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:06:50 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:06:50 INFO src.services.llm_router: Groq provided response in 216.31ms
+2026-05-28 10:06:50 INFO __main__: Responding with provider=groq latency_ms=216.31
+2026-05-28 10:06:59 INFO __main__: Received user prompt: explain about data science
+2026-05-28 10:06:59 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:07:04 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:07:04 INFO src.services.llm_router: Groq provided response in 4558.12ms
+2026-05-28 10:07:04 INFO __main__: Responding with provider=groq latency_ms=4558.12
+2026-05-28 10:07:12 INFO __main__: Received user prompt: hi
+2026-05-28 10:07:12 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:07:12 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:07:12 INFO src.services.llm_router: Groq provided response in 354.44ms
+2026-05-28 10:07:12 INFO __main__: Responding with provider=groq latency_ms=354.44
+2026-05-28 10:07:14 INFO __main__: Exiting LLM chat loop
+2026-05-28 10:09:14 INFO __main__: Starting LLM chat loop
+2026-05-28 10:09:16 INFO __main__: Received user prompt: hi
+2026-05-28 10:09:16 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:09:16 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:09:16 INFO src.services.llm_router: Groq provided response in 431.9ms
+2026-05-28 10:09:16 INFO __main__: Responding with provider=groq latency_ms=431.9
+2026-05-28 10:09:18 INFO __main__: Received user prompt: hi
+2026-05-28 10:09:18 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:09:18 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:09:18 INFO src.services.llm_router: Groq provided response in 227.7ms
+2026-05-28 10:09:18 INFO __main__: Responding with provider=groq latency_ms=227.7
+2026-05-28 10:09:20 INFO __main__: Received user prompt: hi
+2026-05-28 10:09:20 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:09:20 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:09:20 INFO src.services.llm_router: Groq provided response in 213.53ms
+2026-05-28 10:09:20 INFO __main__: Responding with provider=groq latency_ms=213.53
+2026-05-28 10:09:22 INFO __main__: Received user prompt: hi
+2026-05-28 10:09:22 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:09:22 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:09:22 INFO src.services.llm_router: Groq provided response in 209.32ms
+2026-05-28 10:09:22 INFO __main__: Responding with provider=groq latency_ms=209.32
+2026-05-28 10:09:23 INFO __main__: Received user prompt: hi
+2026-05-28 10:09:23 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:09:23 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:09:23 INFO src.services.llm_router: Groq provided response in 238.19ms
+2026-05-28 10:09:23 INFO __main__: Responding with provider=groq latency_ms=238.19
+2026-05-28 10:09:25 INFO __main__: Received user prompt: hisdsd
+2026-05-28 10:09:25 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:09:26 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:09:26 INFO src.services.llm_router: Groq provided response in 277.79ms
+2026-05-28 10:09:26 INFO __main__: Responding with provider=groq latency_ms=277.79
+2026-05-28 10:09:29 INFO __main__: Received user prompt: dffd
+2026-05-28 10:09:29 INFO src.services.llm_router: call_llm received prompt
+2026-05-28 10:09:29 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 10:09:29 INFO src.services.llm_router: Groq provided response in 419.89ms
+2026-05-28 10:09:29 INFO __main__: Responding with provider=groq latency_ms=419.89
+2026-05-28 10:30:13 INFO __main__: Exiting LLM chat loop
