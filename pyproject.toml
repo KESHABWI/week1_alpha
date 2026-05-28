@@ -1,13 +1,24 @@
 [project]
-name = "week1-ai-system"
+name = "week1_alpha"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "black>=26.5.1",
     "fastapi>=0.136.3",
-    "httpx>=0.28.1",
+    "httpx[http2]>=0.28.1",
+    "mypy>=2.1.0",
+    "ollama>=0.6.2",
     "pydantic>=2.13.4",
+    "pydantic-settings>=2.14.1",
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.4.0",
     "python-dotenv>=1.2.2",
+    "ruff>=0.15.14",
     "uvicorn>=0.48.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
