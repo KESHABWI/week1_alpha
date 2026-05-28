@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from ollama import Client
+from ollama import AsyncClient
 from pydantic import ValidationError
 
 from src.chatbot.config.settings import settings
@@ -21,7 +21,7 @@ class OllamaAuthError(Exception):
     pass
 
 
-client = Client(
+client = AsyncClient(
     host=settings.OLLAMA_URL,
     headers={"Authorization": f"Bearer {settings.OLLAMA_API_KEY}"},
 )
@@ -47,15 +47,12 @@ async def call_llm_ollama(prompt: str) -> str:
     )
 
     try:
+        response = await client.chat(
+            model=settings.OLLAMA_MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            stream=False,
+        )
 
-        def sync_call():
-            return client.chat(
-                model=settings.OLLAMA_MODEL,
-                messages=[{"role": "user", "content": prompt}],
-                stream=False,
-            )
-
-        response = await asyncio.to_thread(sync_call)
         logger.debug("Ollama response data=%s", response)
 
         return response["message"]["content"]
