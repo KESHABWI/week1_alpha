@@ -3,8 +3,8 @@
 # from fastapi import FastAPI
 # from pydantic import BaseModel
 
-# from src.clients.httpx_client import httpx_client
-# from src.services.llm_router import call_llm
+# from chatbot.clients.httpx_client import httpx_client
+# from chatbot.router.llm_router import call_llm
 
 
 # @asynccontextmanager
@@ -43,9 +43,9 @@ import logging
 import sys
 from pydantic import ValidationError
 
-from src.config.logging_config import setup_logging
-from src.config.settings import get_settings
-from src.services.llm_router import call_llm
+from src.chatbot.config.logging_config import setup_logging
+from src.chatbot.config.settings import get_settings
+from src.chatbot.router.llm_router import call_llm
 
 logger = logging.getLogger(__name__)
 

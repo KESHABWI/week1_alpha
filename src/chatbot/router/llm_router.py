@@ -3,11 +3,11 @@ import time
 import httpx
 from pydantic import ValidationError
 
-from src.services.groq_services import call_llm_groq
-from src.services.gemini_services import call_llm_gemini
-from src.services.ollama_services import call_llm_ollama
+from src.chatbot.services.groq_services import call_llm_groq
+from src.chatbot.services.gemini_services import call_llm_gemini
+from src.chatbot.services.ollama_services import call_llm_ollama
 
-from src.schemas.llm_schema import LLMResponse, UserInput
+from src.chatbot.schemas.llm_schema import LLMResponse, UserInput
 
 logger = logging.getLogger(__name__)
 

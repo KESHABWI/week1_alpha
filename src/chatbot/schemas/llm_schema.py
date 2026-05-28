@@ -14,7 +14,7 @@ class UserInput(BaseModel):
         Field(
             ...,
             description="The prompt to send to the LLM",
-            example="What is the capital of France?",
+            json_schema_extra={"example": "What is the capital of France?"},
             min_length=1,
             max_length=10000,
         ),
@@ -28,7 +28,7 @@ class Message(BaseModel):
 
 class GroqRequest(BaseModel):
     model: str = Field(..., min_length=1)
-    messages: list[Message] = Field(..., min_items=1)
+    messages: list[Message] = Field(..., min_length=1)
     temperature: Optional[float] = Field(default=0.7, ge=0, le=2)
     max_tokens: Optional[int] = Field(default=2000, gt=0)
 
@@ -38,15 +38,15 @@ class GeminiPart(BaseModel):
 
 
 class GeminiContent(BaseModel):
-    parts: list[GeminiPart] = Field(..., min_items=1)
+    parts: list[GeminiPart] = Field(..., min_length=1)
 
 
 class GeminiRequest(BaseModel):
-    contents: list[GeminiContent] = Field(..., min_items=1)
+    contents: list[GeminiContent] = Field(..., min_length=1)
 
 
 class OllamaRequest(BaseModel):
     model: str = Field(..., min_length=1)
-    messages: list[Message] = Field(..., min_items=1)
+    messages: list[Message] = Field(..., min_length=1)
     stream: bool = False
 

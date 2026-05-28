@@ -1,5 +1,5 @@
 import httpx
-from src.config.settings import settings
+from chatbot.config.settings import settings
 
 
 def create_http_client() -> httpx.AsyncClient:

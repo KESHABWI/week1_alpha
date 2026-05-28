@@ -3,8 +3,8 @@ import logging
 from ollama import Client
 from pydantic import ValidationError
 
-from src.config.settings import settings
-from src.schemas.llm_schema import OllamaRequest
+from src.chatbot.config.settings import settings
+from src.chatbot.schemas.llm_schema import OllamaRequest
 
 logger = logging.getLogger(__name__)
 
