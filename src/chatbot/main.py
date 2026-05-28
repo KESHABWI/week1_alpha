@@ -85,13 +85,14 @@ async def chat_loop() -> None:
 
         logger.info("Received user prompt: %s", user_input)
         try:
+            print("AI: ", end="", flush=True)
             AI_response = await call_llm(user_input)
+            print()  # Final newline after streaming completes
             logger.info(
                 "Responding with provider=%s latency_ms=%s",
                 AI_response.provider,
                 AI_response.latency_ms,
             )
-            print(f"AI: {AI_response.response}")
         except ValueError as e:
             logger.exception("Validation error")
             print(f"\n❌ Validation Error: {e}\nPlease check your input and try again.\n")

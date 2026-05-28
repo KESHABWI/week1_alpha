@@ -5,7 +5,7 @@ from src.chatbot.services.ollama_services import  call_llm_ollama
 @pytest.mark.asyncio
 async def test_ollama_basic():
 
-    prompt = "Say hello in one sentence"
+    prompt = "Hi, write a short poem about AI"
 
     response = await call_llm_ollama(prompt)
 

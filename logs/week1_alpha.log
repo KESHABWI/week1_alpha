@@ -48,3 +48,278 @@
 2026-05-28 13:02:29 INFO src.chatbot.router.llm_router: Groq provided response in 470.41ms
 2026-05-28 13:02:29 INFO __main__: Responding with provider=groq latency_ms=470.41
 2026-05-28 13:02:37 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:13:53 INFO __main__: Configuration validated successfully
+2026-05-28 14:13:53 INFO __main__: Starting LLM chat loop
+2026-05-28 14:13:56 INFO __main__: Received user prompt: hello
+2026-05-28 14:13:56 INFO src.chatbot.router.llm_router: User input validated: length=5
+2026-05-28 14:13:56 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:13:56 ERROR __main__: Error during API call
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 27, in call_llm
+    result = await call_llm_groq(prompt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/services/groq_services.py", line 46, in call_llm_groq
+    async for chunk in await httpx_client.post(
+                             ~~~~~~~~~~~~~~~~~^
+        settings.GROQ_URL, json=payload.model_dump(), headers=headers,stream=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+TypeError: AsyncClient.post() got an unexpected keyword argument 'stream'
+2026-05-28 14:14:32 INFO __main__: Received user prompt: hello
+2026-05-28 14:14:32 INFO src.chatbot.router.llm_router: User input validated: length=5
+2026-05-28 14:14:32 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:14:32 ERROR __main__: Error during API call
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 27, in call_llm
+    result = await call_llm_groq(prompt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/services/groq_services.py", line 46, in call_llm_groq
+    async for chunk in await httpx_client.post(
+                             ^^^^^^^^^^^^^^^^^^
+        settings.GROQ_URL, json=payload.model_dump(), headers=headers,stream=True):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        print(chunk)
+    
+TypeError: AsyncClient.post() got an unexpected keyword argument 'stream'
+2026-05-28 14:14:34 INFO __main__: Received user prompt: hello
+2026-05-28 14:14:34 INFO src.chatbot.router.llm_router: User input validated: length=5
+2026-05-28 14:14:34 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:14:34 ERROR __main__: Error during API call
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 27, in call_llm
+    result = await call_llm_groq(prompt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/services/groq_services.py", line 46, in call_llm_groq
+    async for chunk in await httpx_client.post(
+                             ^^^^^^^^^^^^^^^^^^
+        settings.GROQ_URL, json=payload.model_dump(), headers=headers,stream=True):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        print(chunk)
+    
+TypeError: AsyncClient.post() got an unexpected keyword argument 'stream'
+2026-05-28 14:14:35 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:15:35 INFO __main__: Configuration validated successfully
+2026-05-28 14:15:35 INFO __main__: Starting LLM chat loop
+2026-05-28 14:15:37 INFO __main__: Received user prompt: hi
+2026-05-28 14:15:37 INFO src.chatbot.router.llm_router: User input validated: length=2
+2026-05-28 14:15:37 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:15:37 ERROR __main__: Error during API call
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 27, in call_llm
+    result = await call_llm_groq(prompt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/services/groq_services.py", line 46, in call_llm_groq
+    async for chunk in await httpx_client.stream(
+                             ~~~~~~~~~~~~~~~~~~~^
+        settings.GROQ_URL, json=payload.model_dump(), headers=headers):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 338, in helper
+    return _AsyncGeneratorContextManager(func, args, kwds)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 109, in __init__
+    self.gen = func(*args, **kwds)
+               ~~~~^^^^^^^^^^^^^^^
+TypeError: AsyncClient.stream() missing 1 required positional argument: 'url'
+2026-05-28 14:16:50 INFO __main__: Received user prompt: 	eit
+2026-05-28 14:16:50 INFO src.chatbot.router.llm_router: User input validated: length=4
+2026-05-28 14:16:50 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:16:50 ERROR __main__: Error during API call
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 27, in call_llm
+    result = await call_llm_groq(prompt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/services/groq_services.py", line 46, in call_llm_groq
+    async with httpx_client.stream("POST",settings.GROQ_URL,json=payload.model_dump(),headers=headers) as response:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        async for chunk in response.aiter_text():
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 338, in helper
+    return _AsyncGeneratorContextManager(func, args, kwds)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 109, in __init__
+    self.gen = func(*args, **kwds)
+               ~~~~^^^^^^^^^^^^^^^
+TypeError: AsyncClient.stream() missing 1 required positional argument: 'url'
+2026-05-28 14:16:53 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:16:55 INFO __main__: Configuration validated successfully
+2026-05-28 14:16:55 INFO __main__: Starting LLM chat loop
+2026-05-28 14:16:57 INFO __main__: Received user prompt: hi
+2026-05-28 14:16:57 INFO src.chatbot.router.llm_router: User input validated: length=2
+2026-05-28 14:16:57 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:16:58 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:16:58 INFO src.chatbot.router.llm_router: Groq provided response in 522.15ms
+2026-05-28 14:16:58 ERROR __main__: Validation error
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 31, in call_llm
+    return LLMResponse(
+        provider="groq",
+        response=result,
+        latency_ms=latency_ms,
+    )
+  File "/Users/keke/Desktop/week1_alpha/.venv/lib/python3.14/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for LLMResponse
+response
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.13/v/string_type
+2026-05-28 14:17:33 INFO __main__: Received user prompt: 		ecit
+2026-05-28 14:17:33 INFO src.chatbot.router.llm_router: User input validated: length=6
+2026-05-28 14:17:33 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:17:33 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:17:33 INFO src.chatbot.router.llm_router: Groq provided response in 892.71ms
+2026-05-28 14:17:33 ERROR __main__: Validation error
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 31, in call_llm
+    return LLMResponse(
+        provider="groq",
+        response=result,
+        latency_ms=latency_ms,
+    )
+  File "/Users/keke/Desktop/week1_alpha/.venv/lib/python3.14/site-packages/pydantic/main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for LLMResponse
+response
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.13/v/string_type
+2026-05-28 14:17:36 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:17:38 INFO __main__: Configuration validated successfully
+2026-05-28 14:17:38 INFO __main__: Starting LLM chat loop
+2026-05-28 14:17:39 INFO __main__: Received user prompt: hi
+2026-05-28 14:17:39 INFO src.chatbot.router.llm_router: User input validated: length=2
+2026-05-28 14:17:39 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:17:40 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:17:40 INFO src.chatbot.router.llm_router: Groq provided response in 721.71ms
+2026-05-28 14:17:40 INFO __main__: Responding with provider=groq latency_ms=721.71
+2026-05-28 14:19:09 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:19:15 INFO __main__: Configuration validated successfully
+2026-05-28 14:19:15 INFO __main__: Starting LLM chat loop
+2026-05-28 14:19:18 INFO __main__: Received user prompt: hi
+2026-05-28 14:19:18 INFO src.chatbot.router.llm_router: User input validated: length=2
+2026-05-28 14:19:18 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:19:18 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:19:18 INFO src.chatbot.router.llm_router: Groq provided response in 319.66ms
+2026-05-28 14:19:18 INFO __main__: Responding with provider=groq latency_ms=319.66
+2026-05-28 14:19:43 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:20:23 INFO __main__: Configuration validated successfully
+2026-05-28 14:20:23 INFO __main__: Starting LLM chat loop
+2026-05-28 14:20:24 INFO __main__: Received user prompt: hi
+2026-05-28 14:20:24 INFO src.chatbot.router.llm_router: User input validated: length=2
+2026-05-28 14:20:24 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:20:25 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:20:25 INFO src.chatbot.router.llm_router: Groq provided response in 563.55ms
+2026-05-28 14:20:25 INFO __main__: Responding with provider=groq latency_ms=563.55
+2026-05-28 14:20:30 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:27:14 INFO __main__: Configuration validated successfully
+2026-05-28 14:27:14 INFO __main__: Starting LLM chat loop
+2026-05-28 14:27:16 INFO __main__: Received user prompt: hui
+2026-05-28 14:27:16 INFO src.chatbot.router.llm_router: User input validated: length=3
+2026-05-28 14:27:16 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:27:16 ERROR __main__: Error during API call
+Traceback (most recent call last):
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/main.py", line 88, in chat_loop
+    AI_response = await call_llm(user_input)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/router/llm_router.py", line 27, in call_llm
+    result = await call_llm_groq(prompt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/keke/Desktop/week1_alpha/src/chatbot/services/groq_services.py", line 45, in call_llm_groq
+    response = await httpx_client.post(
+                     ~~~~~~~~~~~~~~~~~^
+        settings.GROQ_URL, json=payload.model_dump(), headers=headers,stream=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: AsyncClient.post() got an unexpected keyword argument 'stream'
+2026-05-28 14:27:41 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:27:43 INFO __main__: Configuration validated successfully
+2026-05-28 14:27:43 INFO __main__: Starting LLM chat loop
+2026-05-28 14:27:45 INFO __main__: Received user prompt: hi
+2026-05-28 14:27:45 INFO src.chatbot.router.llm_router: User input validated: length=2
+2026-05-28 14:27:45 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:27:45 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:27:45 INFO src.chatbot.router.llm_router: Groq provided response in 502.73ms
+2026-05-28 14:27:45 INFO __main__: Responding with provider=groq latency_ms=502.73
+2026-05-28 14:35:22 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:35:29 INFO __main__: Configuration validated successfully
+2026-05-28 14:35:29 INFO __main__: Starting LLM chat loop
+2026-05-28 14:35:31 INFO __main__: Received user prompt: hi
+2026-05-28 14:35:31 INFO src.chatbot.router.llm_router: User input validated: length=2
+2026-05-28 14:35:31 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:35:31 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:35:31 INFO src.chatbot.router.llm_router: Groq provided response in 283.29ms
+2026-05-28 14:35:31 INFO __main__: Responding with provider=groq latency_ms=283.29
+2026-05-28 14:35:44 INFO __main__: Received user prompt: explain about nepal
+2026-05-28 14:35:44 INFO src.chatbot.router.llm_router: User input validated: length=19
+2026-05-28 14:35:44 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:35:49 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:35:49 INFO src.chatbot.router.llm_router: Groq provided response in 4676.16ms
+2026-05-28 14:35:49 INFO __main__: Responding with provider=groq latency_ms=4676.16
+2026-05-28 14:39:35 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:39:39 INFO __main__: Configuration validated successfully
+2026-05-28 14:39:39 INFO __main__: Starting LLM chat loop
+2026-05-28 14:39:41 INFO __main__: Received user prompt: hello
+2026-05-28 14:39:41 INFO src.chatbot.router.llm_router: User input validated: length=5
+2026-05-28 14:39:41 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:39:41 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:39:41 INFO src.chatbot.router.llm_router: Groq provided response in 284.25ms
+2026-05-28 14:39:41 INFO __main__: Responding with provider=groq latency_ms=284.25
+2026-05-28 14:40:07 INFO __main__: Received user prompt: howa 
+2026-05-28 14:40:07 INFO src.chatbot.router.llm_router: User input validated: length=5
+2026-05-28 14:40:07 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:40:07 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:40:07 INFO src.chatbot.router.llm_router: Groq provided response in 461.04ms
+2026-05-28 14:40:07 INFO __main__: Responding with provider=groq latency_ms=461.04
+2026-05-28 14:52:05 INFO __main__: Exiting LLM chat loop
+2026-05-28 14:52:57 INFO __main__: Configuration validated successfully
+2026-05-28 14:52:57 INFO __main__: Starting LLM chat loop
+2026-05-28 14:53:04 INFO __main__: Received user prompt: explain about ml
+2026-05-28 14:53:04 INFO src.chatbot.router.llm_router: User input validated: length=16
+2026-05-28 14:53:04 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:53:04 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:53:08 INFO src.chatbot.router.llm_router: Groq provided response in 4487.53ms
+2026-05-28 14:53:08 INFO __main__: Responding with provider=groq latency_ms=4487.53
+2026-05-28 14:53:13 INFO __main__: Received user prompt: thnaks
+2026-05-28 14:53:13 INFO src.chatbot.router.llm_router: User input validated: length=6
+2026-05-28 14:53:13 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:53:13 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:53:13 INFO src.chatbot.router.llm_router: Groq provided response in 338.21ms
+2026-05-28 14:53:13 INFO __main__: Responding with provider=groq latency_ms=338.21
+2026-05-28 14:54:02 INFO __main__: Received user prompt: djsjfjd
+2026-05-28 14:54:02 INFO src.chatbot.router.llm_router: User input validated: length=7
+2026-05-28 14:54:02 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:54:02 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:54:02 INFO src.chatbot.router.llm_router: Groq provided response in 338.33ms
+2026-05-28 14:54:02 INFO __main__: Responding with provider=groq latency_ms=338.33
+2026-05-28 14:54:22 INFO __main__: Received user prompt: explain about streaming in ai agentic applications and give me the exzmple
+2026-05-28 14:54:22 INFO src.chatbot.router.llm_router: User input validated: length=74
+2026-05-28 14:54:22 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:54:22 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:54:26 INFO src.chatbot.router.llm_router: Groq provided response in 4397.71ms
+2026-05-28 14:54:26 INFO __main__: Responding with provider=groq latency_ms=4397.71
+2026-05-28 14:59:34 INFO __main__: Received user prompt: explain about deep learning
+2026-05-28 14:59:34 INFO src.chatbot.router.llm_router: User input validated: length=27
+2026-05-28 14:59:34 INFO src.chatbot.router.llm_router: call_llm received prompt
+2026-05-28 14:59:35 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/2 200 OK"
+2026-05-28 14:59:39 INFO src.chatbot.router.llm_router: Groq provided response in 4515.25ms
+2026-05-28 14:59:39 INFO __main__: Responding with provider=groq latency_ms=4515.25
+2026-05-28 15:02:24 INFO __main__: Exiting LLM chat loop

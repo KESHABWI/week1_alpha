@@ -32,39 +32,62 @@ async def call_llm_ollama(prompt: str) -> str:
         payload_dict = {
             "model": settings.OLLAMA_MODEL,
             "messages": [{"role": "user", "content": prompt}],
-            "stream": False,
+            "stream": True,
         }
+
         payload = OllamaRequest(**payload_dict)
-        logger.debug("Ollama request validated: model=%s", payload.model)
+
+        logger.debug(
+            "Ollama request validated: model=%s",
+            payload.model,
+        )
+
     except ValidationError as e:
         logger.exception("Ollama request validation failed")
-        raise Exception(f"Ollama request validation error: {e}")
+        raise Exception(
+            f"Ollama request validation error: {e}"
+        )
 
     logger.debug(
-        "Sending Ollama request model=%s prompt=%s",
+        "Sending Ollama request model=%s",
         settings.OLLAMA_MODEL,
-        prompt,
     )
 
     try:
-        response = await client.chat(
-            model=settings.OLLAMA_MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            stream=False,
-        )
+        full_response = ""
 
-        logger.debug("Ollama response data=%s", response)
+        async for chunk in await client.chat(
+            model=payload.model,
+            messages=payload.messages,
+            stream=payload.stream,
+        ):
+            content = chunk.get(
+                "message",
+                {},
+            ).get(
+                "content",
+                "",
+            )
 
-        return response["message"]["content"]
+            full_response += content
+
+            print(content, end="", flush=True)
+
+        return full_response
 
     except Exception as e:
         logger.exception("Ollama request failed")
+
         error_msg = str(e).lower()
 
         if "429" in error_msg or "rate limit" in error_msg:
-            raise OllamaRateLimitError("Ollama rate limit reached")
+            raise OllamaRateLimitError(
+                "Ollama rate limit reached"
+            )
 
         if "401" in error_msg or "unauthorized" in error_msg:
-            raise OllamaAuthError("Ollama authentication failed")
+            raise OllamaAuthError(
+                "Ollama authentication failed"
+            )
 
         raise Exception(f"Ollama error: {e}")
