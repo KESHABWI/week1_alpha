@@ -76,6 +76,8 @@ async def chat_loop() -> None:
     print("\n--- Alpha LLM Chat ---")
     print('Type "exit" to quit')
 
+    history=[]
+
     while True:
         user_input = input('User: ')
         if user_input.lower() == "exit":
@@ -83,15 +85,19 @@ async def chat_loop() -> None:
             print("Goodbye, Have a nice day")
             break
 
+        history.append({"role": "user", "content": user_input})
+
         logger.info("Received user prompt: %s", user_input)
         try:
-            AI_response = await call_llm(user_input)
+            print("AI: ", end="", flush=True)
+            AI_response = await call_llm(str(history))
+            history.append({"role": "AI", "content": AI_response.response})
+            print()  # Newline after streaming completes
             logger.info(
                 "Responding with provider=%s latency_ms=%s",
                 AI_response.provider,
                 AI_response.latency_ms,
             )
-            print(f"AI: {AI_response.response}")
         except ValueError as e:
             logger.exception("Validation error")
             print(f"\n❌ Validation Error: {e}\nPlease check your input and try again.\n")

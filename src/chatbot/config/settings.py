@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 
     max_tokens: int = Field(default=2000, gt=0)
 
-    LOG_LEVEL: str = "INFO"
+    LOG_LEVEL: str = "CRITICAL"
     LOG_FILE_PATH: str = "logs/week1_alpha.log"
 
     HTTP_MAX_CONNECTIONS: int = 100

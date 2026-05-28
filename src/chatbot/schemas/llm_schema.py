@@ -31,6 +31,7 @@ class GroqRequest(BaseModel):
     messages: list[Message] = Field(..., min_length=1)
     temperature: Optional[float] = Field(default=0.7, ge=0, le=2)
     max_tokens: Optional[int] = Field(default=2000, gt=0)
+    stream: bool = True
 
 
 class GeminiPart(BaseModel):

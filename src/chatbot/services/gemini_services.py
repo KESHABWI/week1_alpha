@@ -1,3 +1,4 @@
+import json
 import logging
 from httpx import RequestError, HTTPStatusError
 from pydantic import ValidationError
@@ -24,7 +25,7 @@ async def call_llm_gemini(prompt: str) -> str:
         logger.exception("Gemini request validation failed")
         raise Exception(f"Gemini request validation error: {e}")
 
-    url = f"{settings.GEMINI_URL}/models/{settings.GEMINI_MODEL}:generateContent"
+    url = f"{settings.GEMINI_URL}/models/{settings.GEMINI_MODEL}:streamGenerateContent?alt=sse"
 
     headers = {
         "x-goog-api-key": settings.GEMINI_API_KEY,
@@ -32,25 +33,48 @@ async def call_llm_gemini(prompt: str) -> str:
     }
 
     logger.debug(
-        "Sending Gemini request url=%s model=%s prompt=%s",
+        "Sending Gemini streaming request url=%s model=%s prompt=%s",
         url,
         settings.GEMINI_MODEL,
         prompt,
     )
 
+    full_response = ""
+
     try:
-        response = await httpx_client.post(url, json=payload.model_dump(), headers=headers)
-        logger.debug("Gemini response status=%s", response.status_code)
+        async with httpx_client.stream(
+            "POST",
+            url,
+            json=payload.model_dump(),
+            headers=headers,
+        ) as response:
 
-        if response.status_code == 429:
-            raise GeminiRateLimitError("Gemini rate limit reached")
+            if response.status_code == 429:
+                raise GeminiRateLimitError("Gemini rate limit reached")
 
-        response.raise_for_status()
+            response.raise_for_status()
 
-        data = response.json()
-        logger.debug("Gemini response data=%s", data)
+            async for line in response.aiter_lines():
+                if not line:
+                    continue
 
-        return data["candidates"][0]["content"]["parts"][0]["text"]
+                if line.startswith("data: "):
+                    data_str = line.removeprefix("data: ")
+
+                    try:
+                        data = json.loads(data_str)
+                        candidates = data.get("candidates", [{}])
+                        if candidates:
+                            parts = candidates[0].get("content", {}).get("parts", [{}])
+                            if parts:
+                                delta = parts[0].get("text", "")
+                                if delta:
+                                    full_response += delta
+                                    print(delta, end="", flush=True)
+                    except json.JSONDecodeError:
+                        logger.warning("Bad JSON chunk: %s", line)
+
+        return full_response
 
     except RequestError as e:
         logger.exception("Gemini network request failed")
@@ -59,3 +83,4 @@ async def call_llm_gemini(prompt: str) -> str:
     except HTTPStatusError as e:
         logger.exception("Gemini HTTP error detected")
         raise Exception(f"Gemini HTTP error: {e}")
+
