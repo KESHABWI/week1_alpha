@@ -2,9 +2,9 @@ import logging
 from httpx import RequestError, HTTPStatusError
 from pydantic import ValidationError
 
-from src.clients.httpx_client import httpx_client
-from src.config.settings import settings
-from src.schemas.llm_schema import GeminiRequest, GeminiContent, GeminiPart
+from src.chatbot.clients.httpx_client import httpx_client
+from src.chatbot.config.settings import settings
+from src.chatbot.schemas.llm_schema import GeminiRequest, GeminiContent, GeminiPart
 
 logger = logging.getLogger(__name__)
 

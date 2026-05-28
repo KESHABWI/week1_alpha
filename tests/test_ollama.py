@@ -1,5 +1,5 @@
 import pytest
-from src.services.ollama_services import call_llm_ollama
+from src.chatbot.services.ollama_services import  call_llm_ollama
 
 
 @pytest.mark.asyncio
