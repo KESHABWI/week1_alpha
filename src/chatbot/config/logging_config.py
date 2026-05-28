@@ -2,7 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
-from src.chatbot.config.settings import settings
+from chatbot.config.settings import settings
 
 
 def setup_logging() -> None:

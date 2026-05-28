@@ -37,7 +37,7 @@ This project uses [uv](https://github.com/astral-sh/uv) for environment setup an
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/KESHABWI/week1_alpha.git
 cd week1_alpha
 ```
 
@@ -61,7 +61,8 @@ Sync and initialize the virtual environment and install all dependencies:
 ```bash
 uv sync
 ```
-*This command automatically creates a local virtual environment (`.venv`), resolves all dependencies in `pyproject.toml`, and locks them into `uv.lock`.*
+
+_This command automatically creates a local virtual environment (`.venv`), resolves all dependencies in `pyproject.toml`, and locks them into `uv.lock`._
 
 ### 3. Environment Variables Configuration
 
@@ -96,7 +97,7 @@ You will see:
 ```
 --- Alpha LLM Chat ---
 Type "exit" to quit
-User: 
+User:
 ```
 
 ### Example Interaction
@@ -115,17 +116,20 @@ Goodbye, Have a nice day
 ## Features in Detail
 
 ### 1. Request/Response Validation (Pydantic)
+
 - **User Input**: Prompts validated for length (1–10,000 characters).
 - **API Payloads**: Groq, Gemini, and Ollama requests validated before execution.
 - **Responses**: Standardized `LLMResponse` payload containing the selected provider, text content, and connection/response latency metrics.
 
 **Key Models (`src/chatbot/schemas/llm_schema.py`)**:
+
 - `UserInput`: Validates user prompt constraints.
 - `Message`: Validates prompt/message roles (e.g. `user`, `assistant`).
 - `GroqRequest`, `GeminiRequest`, `OllamaRequest`: Provider-specific validated payloads.
 - `LLMResponse`: Unified output schema with provider and latency tracking.
 
 ### 2. Logging & Monitoring
+
 - **File Location**: `logs/week1_alpha.log` (created automatically).
 - **Log Levels**: Standard INFO, DEBUG, WARNING, ERROR.
 - **Capabilities**:
@@ -137,13 +141,16 @@ Goodbye, Have a nice day
   - Response latency measurements.
 
 ### 3. Graceful Error Handling & Resiliency
+
 - **Configuration Verification**: Validates missing environment variables or malformed URLs at startup.
 - **Network Failures**: Catches network/timeout exceptions, logs details, and triggers fallbacks.
 - **HTTP/API Failures**: Handles 4xx/5xx responses from downstream services.
 - **Rate Limiting**: Custom error classes detect 429 status codes and immediately bubble up or transition.
 
 ### 4. Failover Routing Logic
+
 The application automatically cascades down the list of providers in the event of an error:
+
 1. Try **Groq** (primary).
 2. If Groq fails (network timeout, rate-limited, bad key) $\rightarrow$ Try **Gemini**.
 3. If Gemini fails $\rightarrow$ Try **Ollama** (local/self-hosted fallback).
@@ -226,18 +233,21 @@ uv run mypy src
 > If required environment settings are missing, the application will exit immediately on launch.
 
 **Error**:
+
 ```
 ❌ Configuration Error:
   - GROQ_API_KEY: GROQ_API_KEY is missing or empty. Check your .env file.
 ```
 
 **Solution**:
+
 1. Check that `.env` is present in the project root.
 2. Verify all API keys are populated.
 
 ### Input Validation Failures
 
 **Error**:
+
 ```
 ❌ Validation Error: Invalid prompt: 1 validation error for UserInput ...
 ```

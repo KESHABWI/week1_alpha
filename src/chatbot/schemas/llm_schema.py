@@ -50,4 +50,3 @@ class OllamaRequest(BaseModel):
     model: str = Field(..., min_length=1)
     messages: list[Message] = Field(..., min_length=1)
     stream: bool = False
-

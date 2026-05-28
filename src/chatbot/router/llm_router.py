@@ -3,11 +3,11 @@ import time
 import httpx
 from pydantic import ValidationError
 
-from src.chatbot.services.groq_services import call_llm_groq
-from src.chatbot.services.gemini_services import call_llm_gemini
-from src.chatbot.services.ollama_services import call_llm_ollama
+from chatbot.services.groq_services import call_llm_groq
+from chatbot.services.gemini_services import call_llm_gemini
+from chatbot.services.ollama_services import call_llm_ollama
 
-from src.chatbot.schemas.llm_schema import LLMResponse, UserInput
+from chatbot.schemas.llm_schema import LLMResponse, UserInput
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ async def call_llm(prompt: str):
     except ValidationError as e:
         logger.exception("User input validation failed")
         raise Exception(f"Invalid prompt: {e}")
-    
+
     logger.info("call_llm received prompt")
     start = time.time()
 
