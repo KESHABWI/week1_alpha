@@ -3,9 +3,9 @@ import logging
 from httpx import RequestError, HTTPStatusError
 from pydantic import ValidationError
 
-from src.chatbot.clients.httpx_client import httpx_client
-from src.chatbot.config.settings import settings
-from src.chatbot.schemas.llm_schema import GeminiRequest, GeminiContent, GeminiPart
+from chatbot.clients.httpx_client import httpx_client
+from chatbot.config.settings import settings
+from chatbot.schemas.llm_schema import GeminiRequest, GeminiContent, GeminiPart
 
 logger = logging.getLogger(__name__)
 
@@ -16,10 +16,17 @@ class GeminiRateLimitError(Exception):
     pass
 
 
-async def call_llm_gemini(prompt: str) -> str:
+async def call_llm_gemini(prompt: str) -> str:  
     try:
-        payload_dict = {"contents": [{"parts": [{"text": prompt}]}]}
-        payload = GeminiRequest(**payload_dict)
+        payload = GeminiRequest(
+            contents=[
+                GeminiContent(
+                    parts=[
+                        GeminiPart(text=prompt)
+                    ]
+                )
+            ]
+        )
         logger.debug("Gemini request validated")
     except ValidationError as e:
         logger.exception("Gemini request validation failed")
@@ -48,7 +55,6 @@ async def call_llm_gemini(prompt: str) -> str:
             json=payload.model_dump(),
             headers=headers,
         ) as response:
-
             if response.status_code == 429:
                 raise GeminiRateLimitError("Gemini rate limit reached")
 
@@ -83,4 +89,3 @@ async def call_llm_gemini(prompt: str) -> str:
     except HTTPStatusError as e:
         logger.exception("Gemini HTTP error detected")
         raise Exception(f"Gemini HTTP error: {e}")
-

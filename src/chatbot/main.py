@@ -37,15 +37,14 @@
 #     return {"provider_response": response}
 
 
-
 import asyncio
 import logging
 import sys
 from pydantic import ValidationError
 
-from src.chatbot.config.logging_config import setup_logging
-from src.chatbot.config.settings import get_settings
-from src.chatbot.router.llm_router import call_llm
+from chatbot.config.logging_config import setup_logging
+from chatbot.config.settings import get_settings
+from chatbot.router.llm_router import call_llm
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +52,7 @@ logger = logging.getLogger(__name__)
 def validate_configuration() -> bool:
     """Validate application configuration at startup."""
     try:
-        settings = get_settings()
+        get_settings()
         logger.info("Configuration validated successfully")
         return True
     except ValidationError as e:
@@ -76,10 +75,10 @@ async def chat_loop() -> None:
     print("\n--- Alpha LLM Chat ---")
     print('Type "exit" to quit')
 
-    history=[]
+    history = []
 
     while True:
-        user_input = input('User: ')
+        user_input = input("User: ")
         if user_input.lower() == "exit":
             logger.info("Exiting LLM chat loop")
             print("Goodbye, Have a nice day")
@@ -100,7 +99,9 @@ async def chat_loop() -> None:
             )
         except ValueError as e:
             logger.exception("Validation error")
-            print(f"\n❌ Validation Error: {e}\nPlease check your input and try again.\n")
+            print(
+                f"\n❌ Validation Error: {e}\nPlease check your input and try again.\n"
+            )
         except Exception as e:
             logger.exception("Error during API call")
             print(f"\n❌ Error: {e}\nPlease try again.\n")
@@ -108,8 +109,8 @@ async def chat_loop() -> None:
 
 if __name__ == "__main__":
     setup_logging()
-    
+
     if not validate_configuration():
         sys.exit(1)
-    
+
     asyncio.run(chat_loop())

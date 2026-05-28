@@ -4,9 +4,9 @@ import logging
 from httpx import RequestError, HTTPStatusError
 from pydantic import ValidationError
 
-from src.chatbot.clients.httpx_client import httpx_client
-from src.chatbot.config.settings import settings
-from src.chatbot.schemas.llm_schema import GroqRequest
+from chatbot.clients.httpx_client import httpx_client
+from chatbot.config.settings import settings
+from chatbot.schemas.llm_schema import GroqRequest
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +24,7 @@ async def call_llm_groq(prompt: str) -> str:
     try:
         payload_dict = {
             "model": settings.GROQ_MODEL,
-            "messages": [
-                {"role": "user", "content": prompt}
-            ],
+            "messages": [{"role": "user", "content": prompt}],
             "temperature": settings.temperature,
             "max_tokens": settings.max_tokens,
             "stream": True,
@@ -55,7 +53,6 @@ async def call_llm_groq(prompt: str) -> str:
             json=payload.model_dump(),
             headers=headers,
         ) as response:
-
             # Rate limit check
             if response.status_code == 429:
                 raise GroqRateLimitError("Groq rate limit reached")
@@ -64,7 +61,6 @@ async def call_llm_groq(prompt: str) -> str:
 
             # ------------------ STREAM LINES ------------------
             async for line in response.aiter_lines():
-
                 if not line:
                     continue
 
