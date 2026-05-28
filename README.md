@@ -1,38 +1,38 @@
-# ⚡ Week1 Alpha: Multi-Provider LLM Router CLI
+# Week1 Alpha: Multi-Provider LLM Router CLI
 
-A robust, production-ready CLI application that implements intelligent failover routing across multiple LLM providers: **Groq**, **Gemini**, and **Ollama**. Built with modern Python tooling, comprehensive logging, request validation, and graceful error handling.
+A command-line interface (CLI) chat application that implements failover routing across multiple LLM providers: **Groq**, **Gemini**, and **Ollama**. Built with modern Python tooling, structured logging, request validation, real-time token streaming, and graceful error handling.
 
 ---
 
-## 🚀 Features
+## Features
 
-- **Asynchronous CLI Chat**: Interactive chat interface powered by async/await for responsive interactions.
-- **Intelligent Failover**: Automatically routes requests with a cascade strategy:
+- **Asynchronous CLI Chat with Token Streaming**: Real-time token streaming for a responsive chat loop across all supported providers.
+- **Intelligent Failover**: Automatically routes requests using a cascade strategy:
   $$\text{Groq} \longrightarrow \text{Gemini} \longrightarrow \text{Ollama (Local/Self-hosted)}$$
 - **Request/Response Validation**: Pydantic models validate all payloads, user inputs, and API responses.
-- **Comprehensive Logging**: File and console logging with rotating file handlers, request/response tracking, and error diagnostics.
-- **Graceful Error Handling**: Configuration validation at startup, network/timeout error handling, API failure recovery.
-- **Resource Management**: Efficient connection pooling with HTTP/2 support via custom `httpx.AsyncClient`.
-- **Robust Configuration**: Strictly validated environment settings using `pydantic-settings` with field validators.
-- **Modern Toolchain**: Fully managed and run with **Astral's `uv`**, the ultra-fast Python package manager.
+- **Session Chat History**: Tracks chat history during the active session to provide context for subsequent messages.
+- **Structured Logging**: Automatic dual console and file logging with rotating file handlers, request/response tracking, and diagnostics.
+- **Startup Configuration Validation**: Strictly validates environment settings using `pydantic-settings` with field validators before starting.
+- **Connection Management**: Efficient connection pooling using a custom `httpx.AsyncClient`.
+- **Modern Toolchain**: Fully managed and run with **Astral's `uv`**, the high-performance Python package manager.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Async Runtime**: Python `asyncio` for concurrent execution
-- **HTTP Client**: [HTTPX](https://www.python-httpx.org/) (with HTTP/2 support)
-- **Local LLM Client**: [Ollama Python SDK](https://github.com/ollama/ollama-python)
-- **Data Validation**: [Pydantic v2](https://docs.pydantic.dev/latest/) & [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)
-- **Logging**: Python `logging` module with rotating file handlers
-- **Package Manager**: [uv](https://github.com/astral-sh/uv)
-- **Testing & Quality**: [pytest](https://docs.pytest.org/), [ruff](https://github.com/astral-sh/ruff), [mypy](https://mypy-lang.org/)
+- **Async Runtime**: Python `asyncio` for concurrent execution.
+- **HTTP Client**: [HTTPX](https://www.python-httpx.org/) (with HTTP/2 support).
+- **Local LLM Client**: [Ollama Python SDK](https://github.com/ollama/ollama-python).
+- **Data Validation**: [Pydantic v2](https://docs.pydantic.dev/latest/) & [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).
+- **Logging**: Python standard `logging` with rotating file handlers.
+- **Package Manager**: [uv](https://github.com/astral-sh/uv).
+- **Testing & Quality**: [pytest](https://docs.pytest.org/), [ruff](https://github.com/astral-sh/ruff), [mypy](https://mypy-lang.org/).
 
 ---
 
-## 📦 Setup & Installation
+## Setup & Installation
 
-This project is fully optimized to use [uv](https://github.com/astral-sh/uv) for lightning-fast environment setup and dependency management. No manual virtualenv creation or `pip` commands are required.
+This project uses [uv](https://github.com/astral-sh/uv) for environment setup and dependency management. No manual virtual environment creation or `pip` commands are required.
 
 ### 1. Clone the Repository
 
@@ -61,7 +61,7 @@ Sync and initialize the virtual environment and install all dependencies:
 ```bash
 uv sync
 ```
-*This command automatically creates a virtual environment (`.venv`), resolves all dependencies in `pyproject.toml`, and locks them into `uv.lock`.*
+*This command automatically creates a local virtual environment (`.venv`), resolves all dependencies in `pyproject.toml`, and locks them into `uv.lock`.*
 
 ### 3. Environment Variables Configuration
 
@@ -81,17 +81,17 @@ OLLAMA_API_KEY=your_ollama_api_key_here
 
 ---
 
-## 🏃 Running the Application
+## Running the Application
 
 ### Start the CLI Chat
 
-Launch the interactive chat interface:
+Launch the interactive chat interface using the following command:
 
 ```bash
-uv run python -m src.main
+uv run python -m src.chatbot.main
 ```
 
-You'll see:
+You will see:
 
 ```
 --- Alpha LLM Chat ---
@@ -104,79 +104,60 @@ User:
 ```
 --- Alpha LLM Chat ---
 Type "exit" to quit
-User: What is machine learning?
-AI: Machine learning is a subset of artificial intelligence that enables computers to learn from data and improve their performance on tasks without being explicitly programmed...
+User: Hello
+AI: Hello! How can I help you today?
 User: exit
 Goodbye, Have a nice day
 ```
 
 ---
 
-## 📋 Features in Detail
+## Features in Detail
 
-### 1. **Request Validation** (Pydantic)
-- **User Input**: Prompts validated for length (1-10,000 characters)
-- **API Payloads**: Groq, Gemini, and Ollama requests validated before sending
-- **Responses**: LLM responses validated for provider, response text, and latency
+### 1. Request/Response Validation (Pydantic)
+- **User Input**: Prompts validated for length (1–10,000 characters).
+- **API Payloads**: Groq, Gemini, and Ollama requests validated before execution.
+- **Responses**: Standardized `LLMResponse` payload containing the selected provider, text content, and connection/response latency metrics.
 
-**Models**:
-- `UserInput`: Validates user prompts
-- `Message`: Validates message structure (role: user/assistant/system)
-- `GroqRequest`, `GeminiRequest`, `OllamaRequest`: Provider-specific payloads
-- `LLMResponse`: Response structure with provider and latency tracking
+**Key Models (`src/chatbot/schemas/llm_schema.py`)**:
+- `UserInput`: Validates user prompt constraints.
+- `Message`: Validates prompt/message roles (e.g. `user`, `assistant`).
+- `GroqRequest`, `GeminiRequest`, `OllamaRequest`: Provider-specific validated payloads.
+- `LLMResponse`: Unified output schema with provider and latency tracking.
 
-### 2. **Logging** (Comprehensive)
-- **File Location**: `logs/week1_alpha.log` (created automatically)
-- **Log Levels**: INFO, DEBUG, WARNING, ERROR
-- **What's Logged**:
-  - Application startup and configuration validation
-  - User prompts and responses
-  - Provider selection and failover attempts
-  - Request/response payloads (DEBUG level)
-  - Errors and exceptions with full tracebacks
-  - API latency metrics
+### 2. Logging & Monitoring
+- **File Location**: `logs/week1_alpha.log` (created automatically).
+- **Log Levels**: Standard INFO, DEBUG, WARNING, ERROR.
+- **Capabilities**:
+  - Application startup and configuration validation tracking.
+  - Interactive user prompts and returned response text.
+  - Failover attempts and provider transitions.
+  - Raw JSON request/response payloads (at DEBUG level).
+  - Exceptions and tracebacks.
+  - Response latency measurements.
 
-**Log File Features**:
-- Rotating file handler (5MB per file, 3 backups)
-- Console + file output simultaneously
-- Timestamped entries for debugging
+### 3. Graceful Error Handling & Resiliency
+- **Configuration Verification**: Validates missing environment variables or malformed URLs at startup.
+- **Network Failures**: Catches network/timeout exceptions, logs details, and triggers fallbacks.
+- **HTTP/API Failures**: Handles 4xx/5xx responses from downstream services.
+- **Rate Limiting**: Custom error classes detect 429 status codes and immediately bubble up or transition.
 
-### 3. **Error Handling** (Graceful)
-- **Configuration Validation**: Startup checks for missing API keys, invalid URLs
-- **Network Errors**: Timeout/connection errors caught and logged
-- **API Failures**: 4xx/5xx errors trigger automatic failover
-- **Rate Limiting**: 429 errors detected and handled per provider
-- **User Input Errors**: Validation errors shown with helpful messages
-
-**Error Output**:
-```
-❌ Configuration Error:
-  - GROQ_API_KEY: GROQ_API_KEY is missing or empty. Check your .env file.
-
-Please check your .env file and try again.
-```
-
-### 4. **Failover Strategy**
-1. Try **Groq** (fast & reliable)
-2. If Groq fails → Try **Gemini** 
-3. If Gemini fails → Try **Ollama** (local fallback)
-4. Log each transition with reason
+### 4. Failover Routing Logic
+The application automatically cascades down the list of providers in the event of an error:
+1. Try **Groq** (primary).
+2. If Groq fails (network timeout, rate-limited, bad key) $\rightarrow$ Try **Gemini**.
+3. If Gemini fails $\rightarrow$ Try **Ollama** (local/self-hosted fallback).
+4. Returns the validated response once successful, logging the selected provider and total round-trip time.
 
 ---
 
-## 🤖 API Usage (Legacy - Commented)
+## Testing & Quality Assurance
 
-The FastAPI routes are currently commented in `src/main.py` but can be uncommented for future REST API support.
-
----
-
-## 🧪 Testing & Quality Assurance
-
-All verification commands are executed within the sandbox environment managed by `uv`.
+All verification commands are executed within the virtual environment managed by `uv`.
 
 ### Run Unit Tests
 
-Execute the test suite (uses `pytest` and `pytest-asyncio`):
+Execute the automated test suite (uses `pytest` and `pytest-asyncio`):
 
 ```bash
 uv run pytest
@@ -184,22 +165,20 @@ uv run pytest
 
 ### Code Quality (Linting & Formatting)
 
-Check and automatically format files according to the project style guide:
-
 ```bash
 # Check for lint violations using Ruff
 uv run ruff check
 
-# Format all source files
+# Format source files using Ruff
 uv run ruff format
 
-# Static Type Verification
+# Static type verification
 uv run mypy src
 ```
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 ├── .env.example              # Template for API credentials
@@ -208,55 +187,69 @@ uv run mypy src
 ├── logs/                     # Logs directory (auto-created)
 │   └── week1_alpha.log       # Application log file
 ├── src/
-│   ├── main.py               # CLI chat application entry point
-│   ├── clients/
-│   │   └── httpx_client.py   # Shared, pooled Async HTTP client
-│   ├── config/
-│   │   ├── settings.py       # Pydantic BaseSettings with validation
-│   │   └── logging_config.py # Logging configuration (file + console)
-│   ├── schemas/
-│   │   └── llm_schema.py     # Pydantic models for requests/responses
-│   └── services/
-│       ├── llm_router.py     # Priority & failover routing logic
-│       ├── groq_services.py  # Groq API client with validation
-│       ├── gemini_services.py# Gemini API client with validation
-│       └── ollama_services.py# Ollama SDK client with validation
+│   └── chatbot/              # Main application package
+│       ├── __init__.py
+│       ├── main.py           # CLI chat application entry point
+│       ├── clients/
+│       │   ├── __init__.py
+│       │   └── httpx_client.py   # Shared, pooled Async HTTP client
+│       ├── config/
+│       │   ├── __init__.py
+│       │   ├── settings.py       # Pydantic BaseSettings with validation
+│       │   └── logging_config.py # Logging configuration (file + console)
+│       ├── memory/
+│       │   └── short_term.py     # Session history / short-term storage
+│       ├── router/
+│       │   └── llm_router.py     # Priority & failover routing logic
+│       ├── schemas/
+│       │   ├── __init__.py
+│       │   └── llm_schema.py     # Pydantic models for requests/responses
+│       └── services/
+│           ├── __init__.py
+│           ├── groq_services.py  # Groq client with real-time streaming
+│           ├── gemini_services.py# Gemini client with real-time streaming
+│           └── ollama_services.py# Ollama client with real-time streaming
 └── tests/
-    └── test_ollama.py        # Async tests for Ollama provider
+    ├── conftest.py           # Shared test fixtures & config
+    ├── test_gemini.py        # Gemini client unit tests
+    ├── test_groq.py          # Groq client unit tests
+    └── test_ollama.py        # Ollama client unit tests
 ```
 
 ---
 
-## � Troubleshooting
+## Troubleshooting
 
 ### Configuration Error at Startup
 
-**Error**: `❌ Configuration Error: GROQ_API_KEY is missing or empty`
+> [!WARNING]
+> If required environment settings are missing, the application will exit immediately on launch.
 
-**Solution**: Ensure your `.env` file exists and contains all required API keys:
-```bash
-cp .env.example .env
-# Edit .env and fill in your API keys
+**Error**:
+```
+❌ Configuration Error:
+  - GROQ_API_KEY: GROQ_API_KEY is missing or empty. Check your .env file.
 ```
 
-### Validation Error on Input
+**Solution**:
+1. Check that `.env` is present in the project root.
+2. Verify all API keys are populated.
 
-**Error**: `❌ Validation Error: ensure this value has at most 10000 characters`
+### Input Validation Failures
 
-**Solution**: Your prompt exceeds 10,000 characters. Keep prompts shorter.
+**Error**:
+```
+❌ Validation Error: Invalid prompt: 1 validation error for UserInput ...
+```
 
-### Network Timeout
+**Solution**: Ensure prompts are not empty and do not exceed the 10,000 character maximum limit.
 
-**Error**: `❌ Error: Groq network error: TimeoutError`
+### Monitoring Logs in Real-time
 
-**Solution**: Check your internet connection. The application will automatically fallback to Gemini or Ollama.
+You can read or follow the diagnostic log file in your terminal:
 
-### View Application Logs
-
-Check the log file for detailed error information:
 ```bash
-cat logs/week1_alpha.log
-# Or follow logs in real-time
+# Follow logs in real-time
 tail -f logs/week1_alpha.log
 ```
 
