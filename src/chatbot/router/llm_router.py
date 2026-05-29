@@ -12,9 +12,41 @@ from chatbot.schemas.llm_schema import LLMResponse, UserInput
 logger = logging.getLogger(__name__)
 
 
-async def call_llm(prompt: str, provider: str):
+async def call_llm_direct(prompt: str, provider: str) -> LLMResponse:
+    """Call specified LLM provider directly without fallback"""
     try:
-        validated_input = UserInput(prompt=prompt, provider=provider)
+        validated_input = UserInput(prompt=prompt)
+        logger.info("User input validated: length=%d", len(validated_input.prompt))
+    except ValidationError as e:
+        logger.exception("User input validation failed")
+        raise Exception(f"Invalid prompt: {e}")
+
+    logger.info("call_llm received prompt")
+
+    start = time.time()
+
+    if provider == "groq":
+        result = await call_llm_groq(prompt)
+    elif provider == "gemini":
+        result = await call_llm_gemini(prompt)
+    elif provider == "ollama":
+        result = await call_llm_ollama(prompt)
+    else:
+        raise ValueError(f"Unsupported provider: {provider}")
+
+    latency_ms = round((time.time() - start) * 1000, 2)
+    logger.info("%s provided response in %sms", provider.capitalize(), latency_ms)
+
+    return LLMResponse(
+        provider=provider,
+        response=result,
+        latency_ms=latency_ms,
+    )
+
+
+async def call_llm_with_fallback(prompt: str):
+    try:
+        validated_input = UserInput(prompt=prompt)
         logger.info("User input validated: length=%d", len(validated_input.prompt))
     except ValidationError as e:
         logger.exception("User input validation failed")

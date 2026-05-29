@@ -45,14 +45,14 @@ from pydantic import ValidationError
 
 from chatbot.config.logging_config import setup_logging
 from chatbot.config.settings import get_settings
-from chatbot.router.llm_router import call_llm
+from chatbot.router.llm_router import call_llm_with_fallback,call_llm_direct
 
 logger = logging.getLogger(__name__)
 
 def arg_parse():
     parser =argparse.ArgumentParser(description="LLM Chatbot CLI")
 
-    parser.add_argument("--provider",type=str,choices=["groq","gemini","ollama"],default="groq",help="Select LLM provider to use")
+    parser.add_argument("--provider",type=str,choices=["groq","gemini","ollama"],default=None,help="Select LLM provider to use")
     return parser.parse_args()
 
 def validate_configuration() -> bool:
@@ -95,7 +95,12 @@ async def chat_loop(provider: str) -> None:
         logger.info("Received user prompt: %s", user_input)
         try:
             print("AI: ", end="", flush=True)
-            AI_response = await call_llm(str(history), provider=provider)
+
+            if provider is not None:
+                AI_response = await call_llm_direct(str(history), provider)
+            else:
+                AI_response = await call_llm_with_fallback(str(history))
+
             history.append({"role": "AI", "content": AI_response.response})
             print()  # Newline after streaming completes
             logger.info(
