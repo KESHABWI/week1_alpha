@@ -40,6 +40,7 @@
 import asyncio
 import logging
 import sys
+import argparse
 from pydantic import ValidationError
 
 from chatbot.config.logging_config import setup_logging
@@ -48,6 +49,11 @@ from chatbot.router.llm_router import call_llm
 
 logger = logging.getLogger(__name__)
 
+def arg_parse():
+    parser =argparse.ArgumentParser(description="LLM Chatbot CLI")
+
+    parser.add_argument("--provider",type=str,choices=["groq","gemini","ollama"],default="groq",help="Select LLM provider to use")
+    return parser.parse_args()
 
 def validate_configuration() -> bool:
     """Validate application configuration at startup."""
@@ -70,7 +76,7 @@ def validate_configuration() -> bool:
         return False
 
 
-async def chat_loop() -> None:
+async def chat_loop(provider: str) -> None:
     logger.info("Starting LLM chat loop")
     print("\n--- Alpha LLM Chat ---")
     print('Type "exit" to quit')
@@ -89,7 +95,7 @@ async def chat_loop() -> None:
         logger.info("Received user prompt: %s", user_input)
         try:
             print("AI: ", end="", flush=True)
-            AI_response = await call_llm(str(history))
+            AI_response = await call_llm(str(history), provider=provider)
             history.append({"role": "AI", "content": AI_response.response})
             print()  # Newline after streaming completes
             logger.info(
@@ -110,7 +116,12 @@ async def chat_loop() -> None:
 if __name__ == "__main__":
     setup_logging()
 
+    args = arg_parse()
+    provider = args.provider
+    logger.info("Selected LLM provider: %s", provider)
+    print(f"Selected provider: {provider}")
+
     if not validate_configuration():
         sys.exit(1)
 
-    asyncio.run(chat_loop())
+    asyncio.run(chat_loop(provider))

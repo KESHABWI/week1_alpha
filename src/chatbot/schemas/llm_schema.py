@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, Annotated
+from typing import Literal, Optional, Annotated
 
 
 class LLMResponse(BaseModel):
@@ -19,6 +19,7 @@ class UserInput(BaseModel):
             max_length=10000,
         ),
     ]
+    provider: Literal["groq", "gemini", "ollama"]
 
 
 class Message(BaseModel):
