@@ -12,9 +12,9 @@ from chatbot.schemas.llm_schema import LLMResponse, UserInput
 logger = logging.getLogger(__name__)
 
 
-async def call_llm(prompt: str):
+async def call_llm(prompt: str, provider: str):
     try:
-        validated_input = UserInput(prompt=prompt)
+        validated_input = UserInput(prompt=prompt, provider=provider)
         logger.info("User input validated: length=%d", len(validated_input.prompt))
     except ValidationError as e:
         logger.exception("User input validation failed")
