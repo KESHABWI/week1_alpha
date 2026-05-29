@@ -16,16 +16,10 @@ class GeminiRateLimitError(Exception):
     pass
 
 
-async def call_llm_gemini(prompt: str) -> str:  
+async def call_llm_gemini(prompt: str) -> str:
     try:
         payload = GeminiRequest(
-            contents=[
-                GeminiContent(
-                    parts=[
-                        GeminiPart(text=prompt)
-                    ]
-                )
-            ]
+            contents=[GeminiContent(parts=[GeminiPart(text=prompt)])]
         )
         logger.debug("Gemini request validated")
     except ValidationError as e:

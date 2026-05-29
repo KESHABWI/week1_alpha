@@ -45,15 +45,23 @@ from pydantic import ValidationError
 
 from chatbot.config.logging_config import setup_logging
 from chatbot.config.settings import get_settings
-from chatbot.router.llm_router import call_llm_with_fallback,call_llm_direct
+from chatbot.router.llm_router import call_llm_with_fallback, call_llm_direct
 
 logger = logging.getLogger(__name__)
 
-def arg_parse():
-    parser =argparse.ArgumentParser(description="LLM Chatbot CLI")
 
-    parser.add_argument("--provider",type=str,choices=["groq","gemini","ollama"],default=None,help="Select LLM provider to use")
+def arg_parse():
+    parser = argparse.ArgumentParser(description="LLM Chatbot CLI")
+
+    parser.add_argument(
+        "--provider",
+        type=str,
+        choices=["groq", "gemini", "ollama"],
+        default=None,
+        help="Select LLM provider to use",
+    )
     return parser.parse_args()
+
 
 def validate_configuration() -> bool:
     """Validate application configuration at startup."""
