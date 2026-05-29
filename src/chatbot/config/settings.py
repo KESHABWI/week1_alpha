@@ -4,7 +4,9 @@ from functools import lru_cache
 
 
 class Settings(BaseSettings):
-    """Configuration settings for the chatbot application, including API keys, model names, logging configuration, and HTTP client settings. Validates required fields and provides defaults where appropriate."""
+    """Configuration settings for the chatbot application, including API keys,
+       model names, logging configuration, and HTTP client settings. Validates
+       required fields and provides defaults where appropriate."""
     app_name: str = "week1_alpha"
 
     debug: bool = False

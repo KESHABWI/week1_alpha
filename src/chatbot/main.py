@@ -131,7 +131,8 @@ async def chat_loop(provider: str) -> None:
 
 
 if __name__ == "__main__":
-    """Entry point for the chatbot application. Sets up logging, validates configuration, and starts the chat loop."""
+    """Entry point for the chatbot application. Sets up logging, 
+    validates configuration, and starts the chat loop."""
     setup_logging()
 
     args = arg_parse()

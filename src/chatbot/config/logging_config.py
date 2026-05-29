@@ -6,6 +6,11 @@ from chatbot.config.settings import settings
 
 
 def setup_logging() -> None:
+    """Set up logging configuration for the chatbot application, 
+    including file and console handlers with rotation. Logs are 
+    stored in the path specified by settings.LOG_FILE_PATH, and 
+    the log level is determined by settings.LOG_LEVEL."""
+    
     log_path = Path(settings.LOG_FILE_PATH)
     log_path.parent.mkdir(parents=True, exist_ok=True)
 

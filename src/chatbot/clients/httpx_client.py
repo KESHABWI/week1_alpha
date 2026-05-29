@@ -3,7 +3,8 @@ from chatbot.config.settings import settings
 
 
 def create_http_client() -> httpx.AsyncClient:
-    """Create and configure a singleton HTTPX AsyncClient for making API requests to LLM providers. This client is designed to be reused across the application for efficiency and connection pooling."""
+    """Create and configure a singleton HTTPX AsyncClient for making API requests to LLM providers.
+       This client is designed to be reused across the application for efficiency and connection pooling."""
 
     limits = httpx.Limits(
         max_connections=settings.HTTP_MAX_CONNECTIONS,

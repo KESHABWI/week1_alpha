@@ -39,7 +39,8 @@ class GroqRequest(BaseModel):
 
 
 class GeminiPart(BaseModel):
-    """Schema for individual parts of Gemini content, which can be text or other types in more complex implementations. For now, we only support text parts."""
+    """Schema for individual parts of Gemini content, which can be text or other 
+    types in more complex implementations. For now, we only support text parts."""
     text: str = Field(..., min_length=1)
 
 
@@ -49,12 +50,14 @@ class GeminiContent(BaseModel):
 
 
 class GeminiRequest(BaseModel):
-    """Schema for Gemini LLM request payload with validation rules. The 'contents' field is a list of GeminiContent, which allows for more complex message structures in the future."""
+    """Schema for Gemini LLM request payload with validation rules. The 'contents' 
+    field is a list of GeminiContent, which allows for more complex message structures in the future."""
     contents: list[GeminiContent] = Field(..., min_length=1)
 
 
 class OllamaRequest(BaseModel):
-    """Schema for Ollama LLM request payload with validation rules. Similar to GroqRequest but tailored for Ollama's expected format."""
+    """Schema for Ollama LLM request payload with validation rules. Similar to 
+    GroqRequest but tailored for Ollama's expected format."""
     model: str = Field(..., min_length=1)
     messages: list[Message] = Field(..., min_length=1)
     stream: bool = False
