@@ -19,8 +19,6 @@ class UserInput(BaseModel):
             max_length=10000,
         ),
     ]
-    provider: Literal["groq", "gemini", "ollama"]
-
 
 class Message(BaseModel):
     role: str = Field(..., pattern="^(user|assistant|system)$")
