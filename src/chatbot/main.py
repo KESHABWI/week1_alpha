@@ -51,6 +51,8 @@ logger = logging.getLogger(__name__)
 
 
 def arg_parse():
+    """Parse command-line arguments for LLM provider selection.
+    """
     parser = argparse.ArgumentParser(description="LLM Chatbot CLI")
 
     parser.add_argument(
@@ -64,6 +66,7 @@ def arg_parse():
 
 
 def validate_configuration() -> bool:
+    
     """Validate application configuration at startup."""
     try:
         get_settings()
@@ -85,6 +88,7 @@ def validate_configuration() -> bool:
 
 
 async def chat_loop(provider: str) -> None:
+    """Main chat loop for CLI interaction with LLM providers."""
     logger.info("Starting LLM chat loop")
     print("\n--- Alpha LLM Chat ---")
     print('Type "exit" to quit')
@@ -127,6 +131,7 @@ async def chat_loop(provider: str) -> None:
 
 
 if __name__ == "__main__":
+    """Entry point for the chatbot application. Sets up logging, validates configuration, and starts the chat loop."""
     setup_logging()
 
     args = arg_parse()

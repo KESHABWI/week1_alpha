@@ -27,6 +27,7 @@ client = AsyncClient(
 
 
 async def call_llm_ollama(prompt: str) -> str:
+    """Call Ollama LLM with streaming response handling"""
     try:
         payload_dict = {
             "model": settings.OLLAMA_MODEL,

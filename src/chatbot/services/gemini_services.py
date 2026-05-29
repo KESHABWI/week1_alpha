@@ -17,6 +17,7 @@ class GeminiRateLimitError(Exception):
 
 
 async def call_llm_gemini(prompt: str) -> str:
+    """Call Gemini LLM with streaming response handling"""
     try:
         payload = GeminiRequest(
             contents=[GeminiContent(parts=[GeminiPart(text=prompt)])]

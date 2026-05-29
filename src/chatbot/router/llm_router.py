@@ -45,6 +45,7 @@ async def call_llm_direct(prompt: str, provider: str) -> LLMResponse:
 
 
 async def call_llm_with_fallback(prompt: str):
+    """Call LLM providers with fallback logic: try Groq, then Gemini, then Ollama"""
     try:
         validated_input = UserInput(prompt=prompt)
         logger.info("User input validated: length=%d", len(validated_input.prompt))
